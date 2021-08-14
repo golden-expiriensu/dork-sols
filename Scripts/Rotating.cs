@@ -4,18 +4,17 @@ namespace Player
 {
     public class Rotating : MonoBehaviour
     {
-        [SerializeField] private float Turn90Speed = 0.03f;
+        private Link _player;
 
-        public void TurnLeft()
+        private void Awake()
         {
-            Quaternion turn = Quaternion.Euler(0, -90, 0);
-            transform.rotation = Quaternion.Lerp(transform.rotation, transform.rotation * turn, Turn90Speed);
+            _player = GetComponent<Link>();
         }
 
-        public void TurnRight()
+        public void RotatePlayerForwardCamera()
         {
-            Quaternion turn = Quaternion.Euler(0, 90, 0);
-            transform.rotation = Quaternion.Lerp(transform.rotation, transform.rotation * turn, Turn90Speed);
+            float yDifference = _player.CameraTransform.eulerAngles.y - transform.eulerAngles.y;
+            _player.Model.rotation = Quaternion.Euler(0, yDifference, 0);
         }
     }
 }

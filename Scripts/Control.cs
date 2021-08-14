@@ -27,25 +27,42 @@ namespace Player
 
         void Update()
         {
-            float vertical = Input.GetAxis("Vertical");
-            float horizontal = Input.GetAxis("Horizontal");
-            Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
+            Vector3 direction = GetInputDirection();
 
-            if(_player.GroundCheck.IsGrounded())
+            if (_player.GroundCheck.IsGrounded())
             {
                 if (direction.sqrMagnitude >= 0.0001f)
-                    _player.Moving.Move(direction); 
+                {
+                    _player.Moving.Move(direction);
+                    _player.Rotating.RotatePlayerForwardCamera();
+                }
 
                 if (Input.GetKeyDown(ControlBind[ControlType.Jump]))
                     _player.Tricks.Jump(direction);
-
-                if (Input.GetKey(ControlBind[ControlType.TurnLeft]))
-                    _player.Rotating.TurnLeft();
-
-                if (Input.GetKey(ControlBind[ControlType.TurnRight]))
-                    _player.Rotating.TurnRight();
             }
 
+        }
+
+        private Vector3 GetInputDirection()
+        {
+            float vertical = Input.GetAxis("Vertical");
+            float horizontal = Input.GetAxis("Horizontal");
+
+            Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
+
+            direction = transform.TransformDirection(direction);
+            direction = AdjustDirectionByCamera(direction);
+
+            return direction;
+        }
+
+        private Vector3 AdjustDirectionByCamera(Vector3 direction)
+        {
+            float yDifference = _player.CameraTransform.eulerAngles.y - transform.eulerAngles.y;
+            Quaternion cameraRotation = Quaternion.Euler(0, yDifference, 0);
+            direction = cameraRotation * direction;
+
+            return direction;
         }
     }
 }
