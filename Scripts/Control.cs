@@ -7,6 +7,11 @@ namespace Player
     {
         private Link _player;
 
+        public delegate void GetMovingInput(float vertical, float horizontal);
+        public GetMovingInput OnGotAxisInput;
+
+        public bool CanMove = true;
+
         private void Awake()
         {
             _player = GetComponent<Link>();
@@ -29,7 +34,7 @@ namespace Player
         {
             Vector3 direction = GetInputDirection();
 
-            if (_player.GroundCheck.IsGrounded())
+            if (CanMove && _player.GroundCheck.IsGrounded())
             {
                 if (direction.sqrMagnitude >= 0.0001f)
                 {
@@ -38,7 +43,7 @@ namespace Player
                 }
 
                 if (Input.GetKeyDown(ControlBind[ControlType.Jump]))
-                    _player.Tricks.Jump(direction);
+                    _player.Jumper.Jump(direction);
             }
 
         }
@@ -49,6 +54,7 @@ namespace Player
             float horizontal = Input.GetAxis("Horizontal");
 
             Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
+            OnGotAxisInput?.Invoke(vertical, horizontal);
 
             direction = transform.TransformDirection(direction);
             direction = AdjustDirectionByCamera(direction);

@@ -4,8 +4,9 @@ namespace Player
 {
     public class Link : MonoBehaviour
     {
+        public Control Control { get; private set; }
         public Moving Moving { get; private set; }
-        public Jumping Tricks { get; private set; }
+        public Jumping Jumper { get; private set; }
         public Rotating Rotating { get; private set; }
         public Rigidbody Rigidbody { get; private set; }
         public GroundCheck GroundCheck { get; private set; }
@@ -28,8 +29,9 @@ namespace Player
 
         private void Awake()
         {
+            Control = GetComponent<Control>();
             Moving = GetComponent<Moving>();
-            Tricks = GetComponent<Jumping>();
+            Jumper = GetComponent<Jumping>();
             Rotating = GetComponent<Rotating>();
             Rigidbody = GetComponent<Rigidbody>();
             GroundCheck = GetComponent<GroundCheck>();

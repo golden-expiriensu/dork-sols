@@ -12,6 +12,7 @@ namespace Player
         [SerializeField] private float _jumpLength;
         [SerializeField] private AnimationCurve _jumpHeightCurve;
         public Action OnPlayerJumped;
+        public Action OnPlayerLanded;
 
         private void Awake()
         {
@@ -41,6 +42,8 @@ namespace Player
 
                 yield return null;
             }
+
+            OnPlayerLanded?.Invoke();
         }
 
         private Vector3 CalculateJumpPositionByTime(float jumpProgress, Vector3 startPosition, Vector3 targetPosition)
