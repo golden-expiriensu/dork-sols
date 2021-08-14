@@ -10,15 +10,6 @@ namespace Player
         public Rotating Rotating { get; private set; }
         public Rigidbody Rigidbody { get; private set; }
         public GroundCheck GroundCheck { get; private set; }
-        public Stats Stats { get; private set; }
-        [SerializeField] Transform model;
-        public Transform Model 
-        {
-            get
-            {
-                return model;
-            }
-        }
 
         [SerializeField] private Transform cameraTransform;
         public Transform CameraTransform
@@ -35,7 +26,6 @@ namespace Player
             Rotating = GetComponent<Rotating>();
             Rigidbody = GetComponent<Rigidbody>();
             GroundCheck = GetComponent<GroundCheck>();
-            Stats = GetComponent<Stats>();
         }
     }
 }

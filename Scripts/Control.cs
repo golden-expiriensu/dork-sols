@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Player
 {
-    public class Control : MonoBehaviour
+    public class Control : MonoBehaviour, IMovingController
     {
         private Link _player;
 
         public delegate void GetMovingInput(float vertical, float horizontal);
         public GetMovingInput OnGotAxisInput;
 
-        public bool CanMove = true;
+        private bool _canMove = true;
 
         private void Awake()
         {
@@ -34,18 +34,23 @@ namespace Player
         {
             Vector3 direction = GetInputDirection();
 
-            if (CanMove && _player.GroundCheck.IsGrounded())
+            if (CanMove())
             {
                 if (direction.sqrMagnitude >= 0.0001f)
                 {
                     _player.Moving.Move(direction);
-                    _player.Rotating.RotatePlayerForwardCamera();
+                    _player.Rotating.RotateTransformForwardCamera();
                 }
 
                 if (Input.GetKeyDown(ControlBind[ControlType.Jump]))
                     _player.Jumper.Jump(direction);
             }
 
+        }
+
+        private bool CanMove()
+        {
+            return _canMove && _player.GroundCheck.IsGrounded();
         }
 
         private Vector3 GetInputDirection()
@@ -69,6 +74,16 @@ namespace Player
             direction = cameraRotation * direction;
 
             return direction;
+        }
+
+        public void ForbidMove()
+        {
+            _canMove = false;
+        }
+
+        public void AllowMove()
+        {
+            _canMove = true;
         }
     }
 }

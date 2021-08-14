@@ -6,14 +6,14 @@ namespace Player
     public class AnimationSwitcher : MonoBehaviour
     {
         private Animator _animator;
-        private Link _player;
+        private IMovingController _movingController;
 
         [SerializeField] AnimationClip JumpLandingRoll;
 
         private void Awake()
         {
-            _player = GetComponent<Link>();
             _animator = GetComponentInChildren<Animator>();
+            _movingController = GetComponent<IMovingController>();
         }
 
         public void Move(float vertical, float horizontal)
@@ -25,7 +25,7 @@ namespace Player
         public void StartJump()
         {
             _animator.SetBool("Jump", true);
-            _player.Control.CanMove = false;
+            _movingController.ForbidMove();
         }
         
         public void EndJump()
@@ -37,7 +37,7 @@ namespace Player
         private IEnumerator WaitJumpLandingRollAnimation()
         {
             yield return new WaitForSeconds(JumpLandingRoll.length);
-            _player.Control.CanMove = true;
+            _movingController.AllowMove();
         }
     }
 }
