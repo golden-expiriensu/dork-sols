@@ -1,43 +1,40 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Player
+public class AnimationSwitcher : MonoBehaviour
 {
-    public class AnimationSwitcher : MonoBehaviour
+    private Animator _animator;
+    private IMovingController _movingController;
+
+    [SerializeField] AnimationClip JumpLandingRoll;
+
+    private void Awake()
     {
-        private Animator _animator;
-        private IMovingController _movingController;
+        _animator = GetComponentInChildren<Animator>();
+        _movingController = GetComponent<IMovingController>();
+    }
 
-        [SerializeField] AnimationClip JumpLandingRoll;
+    public void Move(float vertical, float horizontal)
+    {
+        _animator.SetFloat("Vertical", vertical);
+        _animator.SetFloat("Horizontal", horizontal);
+    }
 
-        private void Awake()
-        {
-            _animator = GetComponentInChildren<Animator>();
-            _movingController = GetComponent<IMovingController>();
-        }
+    public void StartJump()
+    {
+        _animator.SetBool("Jump", true);
+        _movingController.ForbidMove();
+    }
 
-        public void Move(float vertical, float horizontal)
-        { 
-            _animator.SetFloat("Vertical", vertical);
-            _animator.SetFloat("Horizontal", horizontal);
-        }
+    public void EndJump()
+    {
+        _animator.SetBool("Jump", false);
+        StartCoroutine(WaitJumpLandingRollAnimation());
+    }
 
-        public void StartJump()
-        {
-            _animator.SetBool("Jump", true);
-            _movingController.ForbidMove();
-        }
-        
-        public void EndJump()
-        {
-            _animator.SetBool("Jump", false);
-            StartCoroutine(WaitJumpLandingRollAnimation());
-        }
-
-        private IEnumerator WaitJumpLandingRollAnimation()
-        {
-            yield return new WaitForSeconds(JumpLandingRoll.length);
-            _movingController.AllowMove();
-        }
+    private IEnumerator WaitJumpLandingRollAnimation()
+    {
+        yield return new WaitForSeconds(JumpLandingRoll.length);
+        _movingController.AllowMove();
     }
 }

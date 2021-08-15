@@ -2,59 +2,55 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Player
+public class Jumping : MonoBehaviour
 {
-    public class Jumping : MonoBehaviour
+    private Rigidbody _rigidbody;
+    [SerializeField] private float _jumpDuration;
+    [SerializeField] private float _jumpHeight;
+    [SerializeField] private float _jumpLength;
+    [SerializeField] private AnimationCurve _jumpHeightCurve;
+    public Action OnJumped;
+    public Action OnLanded;
+
+    private void Awake()
     {
-        private Link _player;
-        [SerializeField] private float _jumpDuration;
-        [SerializeField] private float _jumpHeight;
-        [SerializeField] private float _jumpLength;
-        [SerializeField] private AnimationCurve _jumpHeightCurve;
-        public Action OnPlayerJumped;
-        public Action OnPlayerLanded;
+        _rigidbody = GetComponent<Rigidbody>();
+    }
+    public void Jump(Vector3 direction)
+    {
+        OnJumped?.Invoke();
+        StartCoroutine(AnimateJump(direction));
+    }
 
-        private void Awake()
+    private IEnumerator AnimateJump(Vector3 direction)
+    {
+        float elapsedTime = 0f;
+        float jumpProgress = 0f;
+        Vector3 startPosition = transform.position;
+        Vector3 targetPosition = transform.position + direction * _jumpLength;
+
+        while (jumpProgress < 1f)
         {
-            _player = GetComponent<Link>();
+            elapsedTime += Time.deltaTime;
+            jumpProgress = elapsedTime / _jumpDuration;
+
+            Vector3 move = CalculateJumpPositionByTime(jumpProgress, startPosition, targetPosition);
+            _rigidbody.MovePosition(move);
+
+            yield return null;
         }
 
-        public void Jump(Vector3 direction)
-        {
-            OnPlayerJumped?.Invoke();
-            StartCoroutine(AnimateJump(direction));
-        }
+        OnLanded?.Invoke();
+    }
 
-        private IEnumerator AnimateJump(Vector3 direction)
-        {
-            float elapsedTime = 0f;
-            float jumpProgress = 0f;
-            Vector3 startPosition = transform.position;
-            Vector3 targetPosition = transform.position + direction * _jumpLength;
+    private Vector3 CalculateJumpPositionByTime(float jumpProgress, Vector3 startPosition, Vector3 targetPosition)
+    {
+        float yOffset = _jumpHeightCurve.Evaluate(jumpProgress) * _jumpHeight;
+        float y = startPosition.y + yOffset;
+        Vector3 xz = Vector3.Lerp(startPosition, targetPosition, jumpProgress);
 
-            while (jumpProgress < 1f)
-            {
-                elapsedTime += Time.deltaTime;
-                jumpProgress = elapsedTime / _jumpDuration;
+        Vector3 move = new Vector3(xz.x, y, xz.z);
 
-                Vector3 move = CalculateJumpPositionByTime(jumpProgress, startPosition, targetPosition);
-                _player.Rigidbody.MovePosition(move);
-
-                yield return null;
-            }
-
-            OnPlayerLanded?.Invoke();
-        }
-
-        private Vector3 CalculateJumpPositionByTime(float jumpProgress, Vector3 startPosition, Vector3 targetPosition)
-        {
-            float yOffset = _jumpHeightCurve.Evaluate(jumpProgress) * _jumpHeight;
-            float y = startPosition.y + yOffset;
-            Vector3 xz = Vector3.Lerp(startPosition, targetPosition, jumpProgress);
-
-            Vector3 move = new Vector3(xz.x, y, xz.z);
-
-            return move;
-        }
+        return move;
     }
 }

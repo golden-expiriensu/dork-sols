@@ -1,23 +1,22 @@
 ﻿using UnityEngine;
 
-namespace Player
+public class AnimationObserver : MonoBehaviour
 {
-    public class AnimationObserver : MonoBehaviour
+    private Jumping _jumping;
+    private AnimationSwitcher _animationSwitcher;
+    private IMovingController _movingController;
+
+    private void Awake()
     {
-        private Link _player;
-        private AnimationSwitcher _animationSwitcher;
+        _jumping = GetComponent<Jumping>();
+        _animationSwitcher = GetComponent<AnimationSwitcher>();
+        _movingController = GetComponent<IMovingController>();
+    }
 
-        private void Awake()
-        {
-            _player = GetComponent<Link>();
-            _animationSwitcher = GetComponent<AnimationSwitcher>();
-        }
-
-        private void Start()
-        {
-            _player.Jumper.OnPlayerJumped += _animationSwitcher.StartJump;
-            _player.Jumper.OnPlayerLanded += _animationSwitcher.EndJump;
-            _player.Control.OnGotAxisInput += _animationSwitcher.Move;
-        }
+    private void Start()
+    {
+        _jumping.OnJumped += _animationSwitcher.StartJump;
+        _jumping.OnLanded += _animationSwitcher.EndJump;
+        _movingController.SubscribeOnAxisInput(_animationSwitcher.Move);
     }
 }
