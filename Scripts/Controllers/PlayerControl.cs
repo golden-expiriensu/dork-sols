@@ -37,11 +37,10 @@ public class PlayerControl : MovingControl
 
         if (CanMove())
         {
-            if (direction.sqrMagnitude >= 0.0001f)
-            {
-                _moving.Move(direction);
+            _moving.Move(direction);
+
+            if (direction.sqrMagnitude != 0f)
                 _rotating.RotateByDifferenceInRotating(_cameraTransform, transform);
-            }
 
             if (Input.GetKeyDown(ControlBind[ControlType.Jump]))
                 _jumping.Jump(direction);
@@ -60,7 +59,6 @@ public class PlayerControl : MovingControl
         float horizontal = Input.GetAxis("Horizontal");
 
         Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
-        OnGotAxisInput?.Invoke(vertical, horizontal);
 
         direction = transform.TransformDirection(direction);
         direction = AdjustDirectionByCamera(direction);

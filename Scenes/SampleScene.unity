@@ -954,7 +954,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 184202436}
-  m_LocalRotation: {x: 0.18639271, y: 0.00000000812722, z: -0.0000000015418746, w: 0.9824754}
+  m_LocalRotation: {x: 0.18620822, y: -0.04450003, z: 0.008442776, w: 0.98146576}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1817,6 +1817,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: b96f12f6108ae4c7c830b53377f99e6c, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: cd8947d7bd2fb1b4fb00c6b442c52147, type: 2}
+    - target: {fileID: 9500000, guid: b96f12f6108ae4c7c830b53377f99e6c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b96f12f6108ae4c7c830b53377f99e6c, type: 3}
 --- !u!4 &391029489 stripped
@@ -2037,7 +2045,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 417756189}
-  m_LocalRotation: {x: 0.20423259, y: -3.2402808e-10, z: 6.7602944e-11, w: 0.9789224}
+  m_LocalRotation: {x: 0.20402978, y: -0.044339087, z: 0.009250777, w: 0.97791636}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3147,7 +3155,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 575016677}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.762966, z: -4.9120746}
+  m_LocalPosition: {x: 0.44451672, y: 3.762966, z: -4.89192}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 417756190}
@@ -3204,8 +3212,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_LookAt: {fileID: 638523142}
+  m_Follow: {fileID: 638523142}
   m_CommonLens: 1
   m_Lens:
     FieldOfView: 40
@@ -3439,6 +3447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e547604df3a3173488100c834584363e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _model: {fileID: 391029489}
 --- !u!54 &638523151
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3484,7 +3493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb46af76ec28225438d10066b98185aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpLandingRoll: {fileID: -203655887218126122, guid: 6ca9f4608e24fbd4ca61053dbc5ccf0c,
+  JumpLandingRoll: {fileID: -203655887218126122, guid: 41363d96350b62448a21928108bbe2a4,
     type: 3}
 --- !u!114 &638523154
 MonoBehaviour:
@@ -4921,8 +4930,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.19210847, y: 0.000000008118106, z: -0.0000000015891564, w: 0.9813737}
-  m_LocalPosition: {x: 0, y: 3.762966, z: -4.9120746}
+  m_LocalRotation: {x: 0.19191812, y: -0.044450138, z: 0.008701641, w: 0.9803652}
+  m_LocalPosition: {x: 0.44451672, y: 3.7629657, z: -4.89192}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1286261829}
@@ -6742,7 +6751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
+  m_TrackedObjectOffset: {x: 0, y: 1.62, z: 0}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 10
   m_LookaheadIgnoreY: 0
@@ -6752,8 +6761,8 @@ MonoBehaviour:
   m_ScreenY: 0.55
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
-  m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 0.8
+  m_SoftZoneWidth: 0.172
+  m_SoftZoneHeight: 0.455
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
@@ -7600,7 +7609,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1262835415
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7642,7 +7651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb46af76ec28225438d10066b98185aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpLandingRoll: {fileID: -203655887218126122, guid: 6ca9f4608e24fbd4ca61053dbc5ccf0c,
+  JumpLandingRoll: {fileID: -203655887218126122, guid: 41363d96350b62448a21928108bbe2a4,
     type: 3}
 --- !u!114 &1262835418
 MonoBehaviour:
@@ -7777,6 +7786,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 638523142}
+  _model: {fileID: 965573214}
 --- !u!114 &1262835426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8300,7 +8310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
+  m_TrackedObjectOffset: {x: 0, y: 1.62, z: 0}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 10
   m_LookaheadIgnoreY: 0
@@ -8310,8 +8320,8 @@ MonoBehaviour:
   m_ScreenY: 0.5
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
-  m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 0.8
+  m_SoftZoneWidth: 0.172
+  m_SoftZoneHeight: 0.455
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
@@ -10575,7 +10585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
+  m_TrackedObjectOffset: {x: 0, y: 1.62, z: 0}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 10
   m_LookaheadIgnoreY: 0
@@ -10585,8 +10595,8 @@ MonoBehaviour:
   m_ScreenY: 0.6
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
-  m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 0.8
+  m_SoftZoneWidth: 0.172
+  m_SoftZoneHeight: 0.455
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
@@ -11337,7 +11347,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1930559733}
-  m_LocalRotation: {x: 0.1685385, y: -0.000000019288404, z: 0.0000000032980176, w: 0.9856951}
+  m_LocalRotation: {x: 0.16837236, y: -0.044645842, z: 0.0076340903, w: 0.9846823}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

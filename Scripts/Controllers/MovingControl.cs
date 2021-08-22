@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 
-public class MovingControl : MonoBehaviour, IMovingController
+public abstract class MovingControl : MonoBehaviour, IMovingController
 {
-    public AxisInput OnGotAxisInput;
+    public delegate void Moved(Transform body, Vector3 direction);
+    public event Moved OnMoved;
 
     protected bool _canMove = true;
 
@@ -19,10 +20,5 @@ public class MovingControl : MonoBehaviour, IMovingController
     public void AllowMove()
     {
         _canMove = true;
-    }
-
-    public void SubscribeOnAxisInput(AxisInput method)
-    {
-        OnGotAxisInput += method;
     }
 }
