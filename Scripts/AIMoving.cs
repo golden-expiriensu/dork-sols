@@ -14,6 +14,9 @@ public class AIMoving : Moving
     private void FixedUpdate()
     {
         UpdateMoveEventVelocity();
+        if(_navAgent.remainingDistance < _navAgent.stoppingDistance)
+            _navAgent.isStopped = true;
+        else _navAgent.isStopped = false;
     }
 
     private void UpdateMoveEventVelocity()

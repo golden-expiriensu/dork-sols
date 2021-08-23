@@ -43,7 +43,10 @@ public class PlayerControl : MovingControl
                 _rotating.RotateByDifferenceInRotating(_cameraTransform, transform);
 
             if (Input.GetKeyDown(ControlBind[ControlType.Jump]))
+            {
+                _moving.Move(Vector3.zero); // TODO: костыль без которого после приземления продолжается анимация с последней скоростью 
                 _jumping.Jump(direction);
+            }
         }
 
     }
@@ -58,7 +61,7 @@ public class PlayerControl : MovingControl
         float vertical = Input.GetAxis("Vertical");
         float horizontal = Input.GetAxis("Horizontal");
 
-        Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
+        Vector3 direction = new Vector3(horizontal, 0, vertical);
 
         direction = transform.TransformDirection(direction);
         direction = AdjustDirectionByCamera(direction);

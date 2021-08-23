@@ -1,22 +1,12 @@
 ﻿using UnityEngine;
 
-public class AnimationObserver : MonoBehaviour
+public abstract class AnimationObserver : MonoBehaviour
 {
-    private Jumping _jumping;
-    private AnimationSwitcher _animationSwitcher;
-    private Moving _moving;
-
-    private void Awake()
+    public enum AnimationName
     {
-        _jumping = GetComponent<Jumping>();
-        _animationSwitcher = GetComponent<AnimationSwitcher>();
-        _moving = GetComponent<Moving>();
-    }
-
-    private void Start()
-    {
-        _jumping.OnJumped += _animationSwitcher.StartJump;
-        _jumping.OnLanded += _animationSwitcher.EndJump;
-        _moving.OnMoved += _animationSwitcher.Move;
+        Move,
+        Jump,
+        Roll,
+        Sambo
     }
 }

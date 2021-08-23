@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Jumping : MonoBehaviour
 {
-    private Rigidbody _rigidbody;
     [SerializeField] private float _jumpDuration;
     [SerializeField] private float _jumpHeight;
     [SerializeField] private float _jumpLength;
@@ -12,10 +11,6 @@ public class Jumping : MonoBehaviour
     public Action OnJumped;
     public Action OnLanded;
 
-    private void Awake()
-    {
-        _rigidbody = GetComponent<Rigidbody>();
-    }
     public void Jump(Vector3 direction)
     {
         OnJumped?.Invoke();
@@ -35,7 +30,7 @@ public class Jumping : MonoBehaviour
             jumpProgress = elapsedTime / _jumpDuration;
 
             Vector3 move = CalculateJumpPositionByTime(jumpProgress, startPosition, targetPosition);
-            _rigidbody.MovePosition(move);
+            transform.position = move;
 
             yield return null;
         }

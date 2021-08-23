@@ -5,14 +5,14 @@ public class PlayerMoving : Moving
     private const float _moovingSpeed = 3f;
 
     private SurfaceSlider _surfaceSlider;
-    private Rigidbody _rigidbody;
+    private CharacterController _controller;
 
     [SerializeField] private Transform _model;
 
     private void Awake()
     {
         _surfaceSlider = GetComponent<SurfaceSlider>();
-        _rigidbody = GetComponent<Rigidbody>();
+        _controller = GetComponent<CharacterController>();
     }
 
 
@@ -20,13 +20,12 @@ public class PlayerMoving : Moving
     {
         if (targetDirection != Vector3.zero)
         {
-            Vector3 directionAlongSurface = _surfaceSlider.Project(targetDirection);
-            Vector3 offset = directionAlongSurface * _moovingSpeed * Time.deltaTime;
-            Vector3 move = _rigidbody.position + offset;
+            Vector3 clampedDirection = Vector3.ClampMagnitude(targetDirection, 1);
+            Vector3 directionAlongSurface = _surfaceSlider.Project(clampedDirection);
 
-            _rigidbody.MovePosition(move); 
+            _controller.Move(directionAlongSurface * _moovingSpeed * Time.deltaTime);
         }
-
+        
         UpdateMoveEvent(_model, Vector3.ClampMagnitude(targetDirection, 1));
     }
 }

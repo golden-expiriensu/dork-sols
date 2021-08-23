@@ -21,8 +21,11 @@ public class AIControl : MovingControl
 
     private IEnumerator LazyFinding()
     {
-        _aiMoving.Move(_player.position);
-        yield return new WaitForSeconds(3);
+        if(CanMove())
+        {
+            _aiMoving.Move(_player.position);
+        }
+        yield return new WaitForSeconds(1);
         StartCoroutine(LazyFinding());
     }
 }
